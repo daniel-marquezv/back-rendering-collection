@@ -37,6 +37,14 @@ app.use(express.static('build', {
     }
   }));
 
+  app.use(express.static('build', {
+    setHeaders: (res, path, stat) => {
+      if (path.endsWith('.css')) {
+        res.set('Content-Type', 'text/css');
+      }
+    }
+  }));
+
 app.use(cors())
 app.use(express.json())
 app.use(requestLogger)
