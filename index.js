@@ -29,6 +29,14 @@ const errorHandler = (error, request, response, next) => {
     next(error)
 }
 
+app.use(express.static('build', {
+    setHeaders: (res, path, stat) => {
+      if (path.endsWith('.js')) {
+        res.set('Content-Type', 'application/javascript');
+      }
+    }
+  }));
+
 app.use(cors())
 app.use(express.json())
 app.use(requestLogger)
